@@ -16,7 +16,7 @@ global.Olm = Olm;
 // logger.disableAll();
 
 async function clearStore() {
-  console.log('[CLEANUP] create store');
+  console.log('[CLEANUP] create store', global.indexedDB, global.localStorage);
   const indexedDBStore = new sdk.IndexedDBStore({
     indexedDB: global.indexedDB,
     localStorage: global.localStorage,

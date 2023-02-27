@@ -31,6 +31,10 @@ const cons = {
     SUCCESS: 'success',
     ERROR: 'error',
   },
+  iframeStates: {
+    LOADING: "LOADING",
+    LOADED: "LOADED",
+  },
   actions: {
     navigation: {
       SELECT_TAB: 'SELECT_TAB',
@@ -151,6 +155,13 @@ const cons = {
       NOTIFICATIONS_TOGGLED: 'NOTIFICATIONS_TOGGLED',
       NOTIFICATION_SOUNDS_TOGGLED: 'NOTIFICATION_SOUNDS_TOGGLED',
     },
+    iframe: {
+      ERROR: "ERROR",
+      GET_STATE: "GET_STATE",
+      STATE_CHANGE: "STATE_CHANGE",
+      LOAD_SESSION: "LOAD_SESSION",
+      SELECT_ROOM: "SELECT_ROOM"
+    }
   },
 };
 

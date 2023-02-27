@@ -15,6 +15,19 @@ global.Olm = Olm;
 
 // logger.disableAll();
 
+async function clearStore() {
+  console.log('[CLEANUP] create store');
+  const indexedDBStore = new sdk.IndexedDBStore({
+    indexedDB: global.indexedDB,
+    localStorage: global.localStorage,
+    dbName: 'web-sync-store',
+  });
+  console.log('[CLEANUP] startup');
+  await indexedDBStore.startup();
+  console.log('[CLEANUP] delete all data');
+  await indexedDBStore.deleteAllData()
+}
+
 class InitMatrix extends EventEmitter {
   constructor() {
     super();
@@ -120,6 +133,12 @@ class InitMatrix extends EventEmitter {
   }
 
   clearCacheAndReload() {
+    if (!this.matrixClient) {
+      clearStore()
+        .catch(error => console.error('[CLEANUP] error cleaning db', error))
+        .finally(() => window.location.reload())
+      return
+    }
     this.matrixClient.stopClient();
     this.matrixClient.store.deleteAllData().then(() => {
       window.location.reload();

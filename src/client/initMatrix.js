@@ -15,17 +15,16 @@ global.Olm = Olm;
 
 // logger.disableAll();
 
-async function clearStore() {
-  console.log('[CLEANUP] create store', global.indexedDB, global.localStorage);
-  const indexedDBStore = new sdk.IndexedDBStore({
-    indexedDB: global.indexedDB,
-    localStorage: global.localStorage,
-    dbName: 'web-sync-store',
-  });
-  console.log('[CLEANUP] startup');
-  await indexedDBStore.startup();
-  console.log('[CLEANUP] delete all data');
-  await indexedDBStore.deleteAllData()
+function clearStore() {
+  return indexedDB.databases()
+    .then(databases => {
+      const promises = []
+      databases.forEach(database => {
+        if (database.name)
+          promises.push(indexedDB.deleteDatabase(database.name))
+      })
+      return Promise.all(promises)
+    })
 }
 
 class InitMatrix extends EventEmitter {

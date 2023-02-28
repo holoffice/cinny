@@ -1,8 +1,8 @@
 import { retrieveLocalStore, updateLocalStore } from "../action/auth"
+import { selectRoom } from "../action/navigation"
 import { createDM } from "../action/room"
 import initMatrix from "../initMatrix"
 import cons from "../state/cons"
-import navigation from "../state/navigation"
 
 function dispatch(type, data) {
   window.parent.postMessage({ type, data }, "*")
@@ -42,7 +42,7 @@ class IFrameAPI {
    * 
    * @param {MessageEvent<any>} event 
    */
-  _onMessage = (event) => {
+  _onMessage = async (event) => {
     if (!event.data || !event.data.type)
       return
     const { type, data } = event.data
@@ -73,7 +73,7 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "roomId must be a string" })
           return
         }
-        navigation.navigate({ type: cons.actions.navigation.SELECT_ROOM, roomId });
+        selectRoom(room_id)
         break;
       }
       case cons.events.iframe.CREATE_DM: {
@@ -82,8 +82,8 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "userId must be a string or an array of string" })
           return
         }
-        const { room_id } = createDM(userId, true)
-        navigation.navigate({ type: cons.actions.navigation.SELECT_ROOM, roomId: room_id })
+        const { room_id } = await createDM(userId, true)
+        selectRoom(room_id)
         break;
       }
       default: {

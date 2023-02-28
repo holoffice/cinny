@@ -1,4 +1,5 @@
 import { retrieveLocalStore, updateLocalStore } from "../action/auth"
+import { createDM } from "../action/room"
 import initMatrix from "../initMatrix"
 import cons from "../state/cons"
 import navigation from "../state/navigation"
@@ -73,6 +74,15 @@ class IFrameAPI {
           return
         }
         navigation.navigate({ type: cons.actions.navigation.SELECT_ROOM, roomId });
+        break;
+      }
+      case cons.events.iframe.CREATE_DM: {
+        const userId = data;
+        if (!userId || (typeof userId !== 'string' && !Array.isArray(userId))) {
+          dispatch(cons.events.iframe.ERROR, { message: "userId must be a string or an array of string" })
+          return
+        }
+        createDM(userId, true)
         break;
       }
       default: {

@@ -160,7 +160,8 @@ const cons = {
       GET_STATE: "GET_STATE",
       STATE_CHANGE: "STATE_CHANGE",
       LOAD_SESSION: "LOAD_SESSION",
-      SELECT_ROOM: "SELECT_ROOM"
+      SELECT_ROOM: "SELECT_ROOM",
+      CREATE_DM: "CREATE_DM"
     }
   },
 };

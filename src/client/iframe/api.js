@@ -2,6 +2,7 @@ import { retrieveLocalStore, updateLocalStore } from "../action/auth"
 import initMatrix from "../initMatrix"
 import cons from "../state/cons"
 import * as roomActions from "../action/room"
+import * as navigation from "../action/navigation"
 
 function dispatch(type, data) {
   window.parent.postMessage({ type, data }, "*")
@@ -72,7 +73,7 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "roomId must be a string" })
           return
         }
-        roomActions.selectRoom(roomId)
+        navigation.selectRoom(roomId)
         break;
       }
       case cons.events.iframe.CREATE_DM: {
@@ -86,7 +87,7 @@ class IFrameAPI {
         const onCreated = (roomId) => {
           if (roomId !== room_id)
             return
-          roomActions.selectRoom(roomId)
+          navigation.selectRoom(roomId)
           initMatrix.roomList.off(cons.events.roomList.ROOM_CREATED, onCreated)
         }
 

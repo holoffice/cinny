@@ -82,7 +82,8 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "userId must be a string or an array of string" })
           return
         }
-        createDM(userId, true)
+        const { room_id } = createDM(userId, true)
+        navigation.navigate({ type: cons.actions.navigation.SELECT_ROOM, roomId: room_id })
         break;
       }
       default: {

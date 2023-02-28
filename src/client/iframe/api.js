@@ -1,8 +1,7 @@
 import { retrieveLocalStore, updateLocalStore } from "../action/auth"
-import { selectRoom } from "../action/navigation"
-import { createDM } from "../action/room"
 import initMatrix from "../initMatrix"
 import cons from "../state/cons"
+import * as roomActions from "../action/room"
 
 function dispatch(type, data) {
   window.parent.postMessage({ type, data }, "*")
@@ -73,7 +72,7 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "roomId must be a string" })
           return
         }
-        selectRoom(room_id)
+        roomActions.selectRoom(roomId)
         break;
       }
       case cons.events.iframe.CREATE_DM: {
@@ -82,8 +81,16 @@ class IFrameAPI {
           dispatch(cons.events.iframe.ERROR, { message: "userId must be a string or an array of string" })
           return
         }
-        const { room_id } = await createDM(userId, true)
-        selectRoom(room_id)
+        const { room_id } = await roomActions.createDM(userId, true)
+
+        const onCreated = (roomId) => {
+          if (roomId !== room_id)
+            return
+          roomActions.selectRoom(roomId)
+          initMatrix.roomList.off(cons.events.roomList.ROOM_CREATED, onCreated)
+        }
+
+        initMatrix.roomList.on(cons.events.roomList.ROOM_CREATED, onCreated)
         break;
       }
       default: {

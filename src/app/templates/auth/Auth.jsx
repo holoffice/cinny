@@ -557,10 +557,9 @@ function Auth() {
       }
       const { href } = window.location;
       window.location.replace(href.slice(0, href.indexOf('?')));
-    } catch(e) {
+    } catch {
       setLoginToken(null);
       setJwtToken(null);
-      console.error('[HOLOFFICE]', 'error while login', e)
     }
   }, []);
 

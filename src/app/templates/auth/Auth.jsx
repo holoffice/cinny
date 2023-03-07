@@ -536,17 +536,23 @@ function AuthCard() {
 
 function Auth() {
   const [loginToken, setLoginToken] = useState(getUrlPrams('loginToken'));
+  const [jwtToken, setJwtToken] = useState(getUrlPrams('jwtToken'));
 
   useEffect(async () => {
-    if (!loginToken) return;
+    if(!loginToken && !jwtToken)
+      return
     if (localStorage.getItem(cons.secretKey.BASE_URL) === undefined) {
       setLoginToken(null);
+      setJwtToken(null);
       return;
     }
     const baseUrl = localStorage.getItem(cons.secretKey.BASE_URL);
     try {
-      await auth.loginWithToken(baseUrl, loginToken);
-
+      if (jwtToken) {
+        await auth.loginWithJwt(baseUrl, jwtToken);
+      } else if (loginToken) {
+        await auth.loginWithToken(baseUrl, loginToken);
+      }
       const { href } = window.location;
       window.location.replace(href.slice(0, href.indexOf('?')));
     } catch {

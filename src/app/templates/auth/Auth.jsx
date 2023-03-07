@@ -537,6 +537,8 @@ function AuthCard() {
 function Auth() {
   const [loginToken, setLoginToken] = useState(getUrlPrams('loginToken'));
   const [jwtToken, setJwtToken] = useState(getUrlPrams('jwtToken'));
+  console.log('[HOLOFFICE]', 'got jwt', jwtToken)
+
 
   useEffect(async () => {
     if(!loginToken && !jwtToken)
@@ -555,8 +557,10 @@ function Auth() {
       }
       const { href } = window.location;
       window.location.replace(href.slice(0, href.indexOf('?')));
-    } catch {
+    } catch(e) {
       setLoginToken(null);
+      setJwtToken(null);
+      console.error('[HOLOFFICE]', 'error while login', e)
     }
   }, []);
 

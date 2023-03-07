@@ -541,12 +541,12 @@ function Auth() {
   useEffect(async () => {
     if(!loginToken && !jwtToken)
       return
-    if (localStorage.getItem(cons.secretKey.BASE_URL) === undefined) {
+    const baseUrl = localStorage.getItem(cons.secretKey.BASE_URL) ?? getUrlPrams('baseUrl');
+    if (baseUrl === undefined) {
       setLoginToken(null);
       setJwtToken(null);
       return;
     }
-    const baseUrl = localStorage.getItem(cons.secretKey.BASE_URL);
     try {
       if (jwtToken) {
         await auth.loginWithJwt(baseUrl, jwtToken);
@@ -557,6 +557,7 @@ function Auth() {
       window.location.replace(href.slice(0, href.indexOf('?')));
     } catch {
       setLoginToken(null);
+      setJwtToken(null);
     }
   }, []);
 

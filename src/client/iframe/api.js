@@ -94,6 +94,21 @@ class IFrameAPI {
         initMatrix.roomList.on(cons.events.roomList.ROOM_CREATED, onCreated)
         break;
       }
+      case cons.events.iframe.JOIN_AND_SELECT_ROOM: {
+        const { roomId, isDM } = data;
+        if (!roomId || typeof roomId !== 'string') {
+          dispatch(cons.events.iframe.ERROR, { message: "roomId must be a string" })
+          return
+        }
+
+        if (!isDM || typeof isDM !== 'boolean') {
+          dispatch(cons.events.iframe.ERROR, { message: "isDM must be a boolean" })
+          return
+        }
+
+        await roomActions.join(roomId, isDM)
+        navigation.selectRoom(roomId)
+      }
       default: {
         dispatch(cons.events.iframe.ERROR, { message: `Received unrecognized event '${type}'` })
         break;

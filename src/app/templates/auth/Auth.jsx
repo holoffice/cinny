@@ -537,8 +537,6 @@ function AuthCard() {
 function Auth() {
   const [loginToken, setLoginToken] = useState(getUrlPrams('loginToken'));
   const [jwtToken, setJwtToken] = useState(getUrlPrams('jwtToken'));
-  console.log('[HOLOFFICE]', 'got jwt', jwtToken)
-
 
   useEffect(async () => {
     if(!loginToken && !jwtToken)

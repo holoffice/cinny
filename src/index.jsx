@@ -8,6 +8,7 @@ import iFrameApi from './client/iframe/api';
 
 import App from './app/pages/App';
 import { retrieveLocalStore } from './client/action/auth';
+import { getUrlPrams } from '../../../util/common';
 
 settings.applyTheme();
 iFrameApi.init();

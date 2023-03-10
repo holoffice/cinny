@@ -14,8 +14,8 @@ settings.applyTheme();
 iFrameApi.init();
 
 const paramUserId = getUrlPrams('userId');
-const { userId } = retrieveLocalStore();
-if(paramUserId && paramUserId !== userId)
+const store = retrieveLocalStore();
+if(paramUserId && store && paramUserId !== store.userId)
     window.localStorage.clear();
 
 ReactDom.render(<App />, document.getElementById('root'));

@@ -8,23 +8,6 @@ function updateLocalStore(accessToken, deviceId, userId, baseUrl) {
   localStorage.setItem(cons.secretKey.BASE_URL, baseUrl);
 }
 
-function retrieveLocalStore() {
-  const accessToken = localStorage.getItem(cons.secretKey.ACCESS_TOKEN);
-  const deviceId = localStorage.getItem(cons.secretKey.DEVICE_ID);
-  const userId = localStorage.getItem(cons.secretKey.USER_ID);
-  const baseUrl = localStorage.getItem(cons.secretKey.BASE_URL);
-
-  if (!accessToken || !deviceId || !userId || !baseUrl)
-    return null
-
-  return {
-    accessToken,
-    deviceId,
-    userId,
-    baseUrl
-  }
-}
-
 function createTemporaryClient(baseUrl) {
   return sdk.createClient({ baseUrl });
 }
@@ -130,5 +113,4 @@ export {
   createTemporaryClient, login, verifyEmail,
   loginWithToken, loginWithJwt, startSsoLogin,
   completeRegisterStage, updateLocalStore,
-  retrieveLocalStore
 };

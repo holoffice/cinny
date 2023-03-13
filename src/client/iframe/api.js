@@ -1,8 +1,9 @@
-import { retrieveLocalStore, updateLocalStore } from "../action/auth"
+import { updateLocalStore } from "../action/auth"
 import initMatrix from "../initMatrix"
 import cons from "../state/cons"
 import * as roomActions from "../action/room"
 import * as navigation from "../action/navigation"
+import { secret } from "../state/auth"
 
 function dispatch(type, data) {
   window.parent.postMessage({ type, data }, "*")
@@ -22,8 +23,7 @@ function dispatchLoad() {
 }
 
 function dispatchLoading() {
-  const session = retrieveLocalStore()
-  dispatch(cons.events.iframe.STATE_CHANGE, { state: cons.iframeStates.LOADING, session })
+  dispatch(cons.events.iframe.STATE_CHANGE, { state: cons.iframeStates.LOADING, session: secret })
 }
 
 class IFrameAPI {
@@ -108,6 +108,7 @@ class IFrameAPI {
 
         await roomActions.join(roomId, isDM)
         navigation.selectRoom(roomId)
+        break;
       }
       default: {
         dispatch(cons.events.iframe.ERROR, { message: `Received unrecognized event '${type}'` })

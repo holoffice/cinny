@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="400" height="400" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 400">
+  <defs>
+    <clipPath id="b">
+      <rect width="400" height="400" rx="40" ry="40" fill="none"/>
+    </clipPath>
+    <filter id="d" data-name="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="e" stdDeviation="75"/>
+      <feFlood flood-color="#92bef5" flood-opacity=".5"/>
+      <feComposite in2="e" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="f" data-name="drop-shadow-2" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="g" stdDeviation="75"/>
+      <feFlood flood-color="#92bef5" flood-opacity=".5"/>
+      <feComposite in2="g" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="h" data-name="drop-shadow-3" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="i" stdDeviation="75"/>
+      <feFlood flood-color="#92bef5" flood-opacity=".5"/>
+      <feComposite in2="i" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="j" data-name="drop-shadow-4" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="k" stdDeviation="75"/>
+      <feFlood flood-color="#92bef5" flood-opacity=".5"/>
+      <feComposite in2="k" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="l" data-name="drop-shadow-5" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="m" stdDeviation="125"/>
+      <feFlood flood-color="#92bef5" flood-opacity=".15"/>
+      <feComposite in2="m" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="n" data-name="drop-shadow-6" filterUnits="userSpaceOnUse">
+      <feOffset dx="0" dy="0"/>
+      <feGaussianBlur result="o" stdDeviation="50"/>
+      <feFlood flood-color="#08163f" flood-opacity=".35"/>
+      <feComposite in2="o" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#b)">
+    <g id="c" data-name="estampe">
+      <path d="M400,400H0V0H400V400Z" fill="#92bef5"/>
+      <path d="M400,200.899v199.101H0V204.023c16.008-2.528,38.987-7.881,53.521-13.068,14.534-5.187,15.92-9.779,25.416,1.256,9.496,11.036,23.332,29.679,27.125,22.375,3.536-6.808,14.478-11.428,18.71-16.684,4.233-5.256,39.296,1.266,58.426,.534,15.125,0,60.982-16.325,74.489-4.6,13.507,11.725,50.027,19.948,60.624,15.124,10.597-4.824,16.606-8.711,26.985-5.537,10.378,3.175,44.826-4.101,54.703-2.525Z" fill="#6f9deb"/>
+      <path d="M400,224.957v175.043H0v-61.687c5.52-8.351,11.64-16.289,18.312-23.751,9.563-8.749,37.5-11.125,44.687-23.124,7.188-12,29.366-12.426,42.116-23.613,15.526-12.829,37.218-10.172,44.522-13.913s14.646-3.678,27.974-9.022c13.328-5.344,18.2,1.86,28.138,2.672,9.939,.813,57.109-6.385,81.171-2.385,24.063,4,40.079-5.615,56.079-13.553,11.125-5.563,36.688,3.707,57-6.669Z" fill="#285ad7" filter="url(#d)"/>
+      <path d="M115.792,400H.005V217.443c23.125,10.063,47.627-.613,73.374,17.563,25.747,18.175,41.479,28.905,41.479,28.905l.933,136.09Z" fill="#2049b1" filter="url(#f)"/>
+      <path d="M288.49,400H0v-61.68s0-.01,.01-.01c5.51-8.36,11.63-16.29,18.31-23.75,9.56-8.75,37.5-11.12,44.68-23.12,7.19-12,29.38-12.43,42.12-23.62,2.67-2.2,5.52-3.94,8.44-5.34,.43,.45,.87,.93,1.31,1.42,9.06,10.31,27.5,14.94,46.25,19.8,19.36,5.03,46.01-5.47,64.59-1.65,28.74,5.88,19.49,8.65,25.89,19.35,6.41,10.68,26.01,22.66,37.95,20.24l-1.06,78.36Z" fill="#102765" filter="url(#h)"/>
+      <path d="M400,273.623v126.377h-93.599v-66.42l18.87-5.271c33.437-13.375,49.596-45.083,74.73-54.686Z" fill="#0e1a54" filter="url(#j)"/>
+      <path d="M400,390.882v9.118H158.748c5.913-6.562,8.779-8.83,21.069-18.75,27.2-21.96,52.33-25.78,92.76-38.59,1.74-.55,23.18-7.23,32.2-10.85,7.52,8.24,16.85,18.24,31.61,17.12,21.24-1.6,48.992,23.952,63.613,41.952Z" fill="#08163f" filter="url(#l)"/>
+      <path id="p" data-name="H" d="M309.201,52.863h-50.527v112.087h-78.16v57.344h78.16v124.842h50.527c9.6,0,17.478-7.693,17.478-17.478V70.341c0-9.786-7.878-17.479-17.478-17.479Zm-218.402,0c-9.616,0-17.479,7.693-17.479,17.479V329.657c0,9.785,7.863,17.478,17.479,17.478h50.527V52.863h-50.527Z" fill="#eef1f6" filter="url(#n)"/>
+    </g>
+  </g>
+</svg>

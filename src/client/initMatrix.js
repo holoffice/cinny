@@ -128,7 +128,12 @@ class InitMatrix extends EventEmitter {
     }
     await this.matrixClient.clearStores();
     window.localStorage.clear();
-    window.location.reload();
+
+    const params = new URLSearchParams(window.location.search)
+    params.delete("deviceId")
+    params.delete("accessToken")
+
+    window.location.replace(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
   }
 
   clearCacheAndReload() {

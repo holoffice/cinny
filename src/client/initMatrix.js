@@ -15,6 +15,16 @@ global.Olm = Olm;
 
 // logger.disableAll();
 
+function clearLocalStoreAndReload() {
+  window.localStorage.clear();
+
+  const params = new URLSearchParams(window.location.search);
+  params.delete("deviceId");
+  params.delete("accessToken");
+
+  window.location.replace(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+}
+
 function clearStore() {
   return indexedDB.databases()
     .then(databases => {
@@ -114,8 +124,7 @@ class InitMatrix extends EventEmitter {
     this.matrixClient.on('Session.logged_out', async () => {
       this.matrixClient.stopClient();
       await this.matrixClient.clearStores();
-      window.localStorage.clear();
-      window.location.reload();
+      clearLocalStoreAndReload();
     });
   }
 
@@ -127,25 +136,19 @@ class InitMatrix extends EventEmitter {
       // ignore if failed to logout
     }
     await this.matrixClient.clearStores();
-    window.localStorage.clear();
-
-    const params = new URLSearchParams(window.location.search)
-    params.delete("deviceId")
-    params.delete("accessToken")
-
-    window.location.replace(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+    clearLocalStoreAndReload();
   }
 
   clearCacheAndReload() {
     if (!this.matrixClient) {
       clearStore()
         .catch(error => console.error('[CLEANUP] error cleaning db', error))
-        .finally(() => window.location.reload())
+        .finally(() => clearLocalStoreAndReload())
       return
     }
     this.matrixClient.stopClient();
     this.matrixClient.store.deleteAllData().then(() => {
-      window.location.reload();
+      clearLocalStoreAndReload()
     });
   }
 }

@@ -10,7 +10,7 @@ function getUrl(key) {
   return urlParameters.get(key)
 }
 
-const isAuthenticated = () => getSecret(cons.secretKey.ACCESS_TOKEN) !== null;
+const isAuthenticated = () => getSecret(cons.secretKey.ACCESS_TOKEN) !== null || !!getUrl("accessToken");
 
 const secret = {
   accessToken: getSecret(cons.secretKey.ACCESS_TOKEN) ?? getUrl("accessToken"),

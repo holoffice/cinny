@@ -7,14 +7,15 @@ import settings from './client/state/settings';
 import iFrameApi from './client/iframe/api';
 
 import App from './app/pages/App';
-import { retrieveLocalStore } from './client/action/auth';
 import { getUrlPrams } from './util/common';
+import { secret } from './client/state/auth';
 
 settings.applyTheme();
 iFrameApi.init();
 
 const paramUserId = getUrlPrams('userId');
-const store = retrieveLocalStore();
+
+const store = secret;
 if(paramUserId && store && paramUserId !== store.userId)
     window.localStorage.clear();
 

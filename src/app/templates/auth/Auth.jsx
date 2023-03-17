@@ -85,18 +85,20 @@ function Homeserver({ onChange }) {
     setupHsConfig(hs.selected);
   }, [hs]);
 
-  useEffect(async () => {
+  useEffect(() => {
     const link = window.location.href;
     const configFileUrl = `${link}${link[link.length - 1] === '/' ? '' : '/'}config.json`;
     try {
-      const result = await (await fetch(configFileUrl, { method: 'GET' })).json();
-      const selectedHs = result?.defaultHomeserver;
-      const hsList = result?.homeserverList;
-      const allowCustom = result?.allowCustomHomeservers ?? true;
-      if (!hsList?.length > 0 || selectedHs < 0 || selectedHs >= hsList?.length) {
-        throw new Error();
-      }
-      setHs({ selected: hsList[selectedHs], list: hsList, allowCustom });
+      const request = fetch(configFileUrl, { method: 'GET' }).then(response => response.json())
+      request.then(result => {
+        const selectedHs = result?.defaultHomeserver;
+        const hsList = result?.homeserverList;
+        const allowCustom = result?.allowCustomHomeservers ?? true;
+        if (!hsList?.length > 0 || selectedHs < 0 || selectedHs >= hsList?.length)
+          throw new Error();
+        setHs({ selected: hsList[selectedHs], list: hsList, allowCustom });
+      })
+        .catch(() => setHs({ selected: 'matrix.org', list: ['matrix.org'], allowCustom: true }))
     } catch {
       setHs({ selected: 'matrix.org', list: ['matrix.org'], allowCustom: true });
     }
@@ -507,7 +509,7 @@ function AuthCard() {
   return (
     <>
       <Homeserver onChange={handleHsChange} />
-      { hsConfig !== null && (
+      {hsConfig !== null && (
         type === 'login'
           ? <Login loginFlow={hsConfig.login.flows} baseUrl={hsConfig.baseUrl} />
           : (
@@ -518,7 +520,7 @@ function AuthCard() {
             />
           )
       )}
-      { hsConfig !== null && (
+      {hsConfig !== null && (
         <Text variant="b2" className="auth-card__switch flex--center">
           {`${(type === 'login' ? 'Don\'t have' : 'Already have')} an account?`}
           <button
@@ -526,7 +528,7 @@ function AuthCard() {
             style={{ color: 'var(--tc-link)', cursor: 'pointer', margin: '0 var(--sp-ultra-tight)' }}
             onClick={() => setType((type === 'login') ? 'register' : 'login')}
           >
-            { type === 'login' ? ' Register' : ' Login' }
+            {type === 'login' ? ' Register' : ' Login'}
           </button>
         </Text>
       )}
@@ -538,8 +540,10 @@ function Auth() {
   const [loginToken, setLoginToken] = useState(getUrlPrams('loginToken'));
   const [jwtToken, setJwtToken] = useState(getUrlPrams('jwtToken'));
 
-  useEffect(async () => {
-    if(!loginToken && !jwtToken)
+  useEffect(() => {
+    console.log('useeffect', loginToken, jwtToken, getUrlPrams('baseUrl'));
+
+    if (!loginToken && !jwtToken)
       return
     const baseUrl = localStorage.getItem(cons.secretKey.BASE_URL) ?? getUrlPrams('baseUrl');
     if (baseUrl === undefined) {
@@ -548,13 +552,26 @@ function Auth() {
       return;
     }
     try {
-      if (jwtToken) {
-        await auth.loginWithJwt(baseUrl, jwtToken);
-      } else if (loginToken) {
-        await auth.loginWithToken(baseUrl, loginToken);
-      }
-      const { href } = window.location;
-      window.location.replace(href.slice(0, href.indexOf('?')));
+      let promise;
+
+      console.log('baseUrl', baseUrl);
+
+      if (jwtToken)
+        promise = auth.loginWithJwt(baseUrl, jwtToken)
+      else if (loginToken)
+        promise = auth.loginWithToken(baseUrl, loginToken)
+      else
+        promise = Promise.resolve()
+
+      promise
+        .then(() => {
+          const { href } = window.location;
+          window.location.replace(href.slice(0, href.indexOf('?')));
+        })
+        .catch(() => {
+          setLoginToken(null);
+          setJwtToken(null);
+        })
     } catch {
       setLoginToken(null);
       setJwtToken(null);

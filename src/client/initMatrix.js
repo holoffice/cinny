@@ -10,6 +10,7 @@ import RoomsInput from './state/RoomsInput';
 import Notifications from './state/Notifications';
 import { cryptoCallbacks } from './state/secretStorageKeys';
 import navigation from './state/navigation';
+import { clearLocalStore } from './action/auth';
 
 global.Olm = Olm;
 
@@ -114,7 +115,7 @@ class InitMatrix extends EventEmitter {
     this.matrixClient.on('Session.logged_out', async () => {
       this.matrixClient.stopClient();
       await this.matrixClient.clearStores();
-      window.localStorage.clear();
+      clearLocalStore()
       window.location.reload();
     });
   }
@@ -127,7 +128,7 @@ class InitMatrix extends EventEmitter {
       // ignore if failed to logout
     }
     await this.matrixClient.clearStores();
-    window.localStorage.clear();
+    clearLocalStore()
     window.location.reload();
   }
 

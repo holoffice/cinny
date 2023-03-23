@@ -8,6 +8,13 @@ function updateLocalStore(accessToken, deviceId, userId, baseUrl) {
   localStorage.setItem(cons.secretKey.BASE_URL, baseUrl);
 }
 
+function clearLocalStore() {
+  localStorage.removeItem(cons.secretKey.ACCESS_TOKEN);
+  localStorage.removeItem(cons.secretKey.DEVICE_ID);
+  localStorage.removeItem(cons.secretKey.USER_ID);
+  localStorage.removeItem(cons.secretKey.BASE_URL);
+}
+
 function retrieveLocalStore() {
   const accessToken = localStorage.getItem(cons.secretKey.ACCESS_TOKEN);
   const deviceId = localStorage.getItem(cons.secretKey.DEVICE_ID);
@@ -130,5 +137,5 @@ export {
   createTemporaryClient, login, verifyEmail,
   loginWithToken, loginWithJwt, startSsoLogin,
   completeRegisterStage, updateLocalStore,
-  retrieveLocalStore
+  retrieveLocalStore, clearLocalStore
 };

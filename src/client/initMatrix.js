@@ -16,18 +16,6 @@ global.Olm = Olm;
 
 // logger.disableAll();
 
-function clearStore() {
-  return indexedDB.databases()
-    .then(databases => {
-      const promises = []
-      databases.forEach(database => {
-        if (database.name)
-          promises.push(indexedDB.deleteDatabase(database.name))
-      })
-      return Promise.all(promises)
-    })
-}
-
 class InitMatrix extends EventEmitter {
   constructor() {
     super();
@@ -133,16 +121,31 @@ class InitMatrix extends EventEmitter {
   }
 
   clearCacheAndReload() {
+    clearLocalStore()
     if (!this.matrixClient) {
-      clearStore()
-        .catch(error => console.error('[CLEANUP] error cleaning db', error))
-        .finally(() => window.location.reload())
+      try {
+        const store = new sdk.IndexedDBStore({
+          indexedDB: global.indexedDB,
+          localStorage: global.localStorage,
+          dbName: 'web-sync-store',
+        });
+
+        const cryptoStore = new sdk.IndexedDBCryptoStore(global.indexedDB, 'crypto-store')
+
+        Promise.all([
+          store.deleteAllData(),
+          cryptoStore.deleteAllData()
+        ])
+          .finally(() => window.location.reload())
+      } catch (e) {
+        window.location.reload()
+      }
       return
     }
-    this.matrixClient.stopClient();
-    this.matrixClient.store.deleteAllData().then(() => {
-      window.location.reload();
-    });
+
+    this.matrixClient.stopClient()
+    this.matrixClient.clearStores()
+      .then(() => window.location.reload())
   }
 }
 

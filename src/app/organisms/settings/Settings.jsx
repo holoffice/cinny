@@ -282,7 +282,7 @@ const tabItems = [{
   text: tabText.NOTIFICATIONS,
   iconSrc: BellIC,
   disabled: false,
-  render: () => <NotificationsSection />,
+  render: () => <></> //<NotificationsSection />,
 }, {
   text: tabText.EMOJI,
   iconSrc: EmojiIC,

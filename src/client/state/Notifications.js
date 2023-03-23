@@ -51,7 +51,7 @@ class Notifications extends EventEmitter {
     this._listenEvents();
 
     // Ask for permission by default after loading
-    window.Notification?.requestPermission();
+    // window.Notification?.requestPermission();
   }
 
   async _initNoti() {
@@ -229,6 +229,9 @@ class Notifications extends EventEmitter {
   }
 
   async _displayPopupNoti(mEvent, room) {
+
+    return; //Disable cinny notifications
+
     if (!settings.showNotifications && !settings.isNotificationSounds) return;
 
     const actions = this.matrixClient.getPushActionsForEvent(mEvent);

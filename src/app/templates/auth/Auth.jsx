@@ -80,7 +80,8 @@ function Homeserver({ onChange }) {
 
   useEffect(() => {
     onChange(null);
-    if (hs === null || hs?.selected.trim() === '') return;
+    if (hs === null || hs?.selected.trim() === '') 
+      return;
     searchingHs = hs.selected;
     setupHsConfig(hs.selected);
   }, [hs]);
@@ -371,7 +372,8 @@ function Register({ registerInfo, loginFlow, baseUrl }) {
   };
 
   useEffect(() => {
-    if (process.type !== 'processing') return;
+    if (process.type !== 'processing') 
+      return;
     const asyncProcess = async () => {
       const [username, password, email] = getInputs();
       const d = await auth.completeRegisterStage(baseUrl, username, password, { session });

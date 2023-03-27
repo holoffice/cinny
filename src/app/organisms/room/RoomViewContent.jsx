@@ -432,7 +432,8 @@ function RoomViewContent({ eventId, roomTimeline }) {
 
   // when active timeline changes
   useEffect(() => {
-    if (!roomTimeline.initialized) return undefined;
+    if (!roomTimeline.initialized) 
+      return;
     const timelineScroll = timelineScrollRef.current;
 
     if (timeline.length > 0) {
@@ -460,7 +461,8 @@ function RoomViewContent({ eventId, roomTimeline }) {
 
   // when paginating from server
   useEffect(() => {
-    if (!roomTimeline.initialized) return;
+    if (!roomTimeline.initialized) 
+      return;
     const timelineScroll = timelineScrollRef.current;
     timelineScroll.tryRestoringScroll();
     autoPaginate();
@@ -468,14 +470,16 @@ function RoomViewContent({ eventId, roomTimeline }) {
 
   // when paginating locally
   useEffect(() => {
-    if (!roomTimeline.initialized) return;
+    if (!roomTimeline.initialized) 
+      return;
     const timelineScroll = timelineScrollRef.current;
     timelineScroll.tryRestoringScroll();
   }, [onLimitUpdate]);
 
   useEffect(() => {
     const timelineScroll = timelineScrollRef.current;
-    if (!roomTimeline.initialized) return;
+    if (!roomTimeline.initialized) 
+      return;
     if (timelineScroll.bottom < 16 && !roomTimeline.canPaginateForward() && document.visibilityState === 'visible') {
       timelineScroll.scrollToBottom();
     } else {

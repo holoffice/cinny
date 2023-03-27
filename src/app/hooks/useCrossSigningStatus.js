@@ -9,7 +9,8 @@ export function useCrossSigningStatus() {
   const [isCSEnabled, setIsCSEnabled] = useState(hasCrossSigningAccountData());
 
   useEffect(() => {
-    if (isCSEnabled) return undefined;
+    if (isCSEnabled) 
+      return;
     const handleAccountData = (event) => {
       if (event.getType() === 'm.cross_signing.master') {
         setIsCSEnabled(true);

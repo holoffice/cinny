@@ -17,7 +17,8 @@ function ContextMenu({
   const hideMenu = () => setVisibility(false);
 
   useEffect(() => {
-    if (afterToggle !== null) afterToggle(isVisible);
+    if (afterToggle !== null) 
+      afterToggle(isVisible);
   }, [isVisible]);
 
   return (
